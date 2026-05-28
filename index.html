@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Personal Crowd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="stage">
+    <canvas id="scene"></canvas>
+
+    <div class="scan-corner corner-a"></div>
+    <div class="scan-corner corner-b"></div>
+
+    <section class="brand" aria-label="Brand identity">
+      <span>houl</span>
+    </section>
+
+    <section class="hero-card" aria-label="Campaign message">
+      <span class="arrow">↘</span>
+      <p>Don't be<br />simple...</p>
+      <h1>Our<br />clients<br />stand out</h1>
+    </section>
+
+    <a class="cta" href="#application" aria-label="Submit your application">
+      <span>Submit your application</span>
+      <strong>↘</strong>
+    </a>
+  </main>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
