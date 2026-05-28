@@ -31,15 +31,15 @@ composer.addPass(bloomPass);
 const ambient = new THREE.AmbientLight(0xd6f3ff, 0.72);
 scene.add(ambient);
 
-const keyLight = new THREE.DirectionalLight(0xe8fff2, 4.8);
+const keyLight = new THREE.DirectionalLight(0xe7fbff, 3.8);
 keyLight.position.set(-4, 9, 9);
 scene.add(keyLight);
 
-const acidLight = new THREE.PointLight(0x7cff00, 18, 18, 1.8);
+const acidLight = new THREE.PointLight(0x58b7ff, 8, 18, 1.8);
 acidLight.position.set(0, 2.8, 2.4);
 scene.add(acidLight);
 
-const backLight = new THREE.PointLight(0x9dff58, 12, 20, 2);
+const backLight = new THREE.PointLight(0xd8f7ff, 6, 20, 2);
 backLight.position.set(-6, 5, -8);
 scene.add(backLight);
 
@@ -68,18 +68,18 @@ function makeMaterial(color, roughness = 0.42, metalness = 0.1) {
 }
 
 const darkMaterials = [
-  makeMaterial(0x0c1510, 0.5, 0.18),
-  makeMaterial(0x121a16, 0.46, 0.15),
-  makeMaterial(0x050807, 0.62, 0.08),
-  makeMaterial(0x1a211d, 0.42, 0.18)
+  makeMaterial(0x081528, 0.52, 0.18),
+  makeMaterial(0x0b1d34, 0.48, 0.16),
+  makeMaterial(0x030915, 0.64, 0.1),
+  makeMaterial(0x132a44, 0.44, 0.18)
 ];
 
 const activeMaterial = new THREE.MeshStandardMaterial({
-  color: 0x59ff13,
-  roughness: 0.24,
-  metalness: 0.04,
-  emissive: 0x59ff13,
-  emissiveIntensity: 2.25
+  color: 0x74caff,
+  roughness: 0.26,
+  metalness: 0.06,
+  emissive: 0x2f9cff,
+  emissiveIntensity: 0.95
 });
 
 function createPerson({ x, z, scale = 1, highlighted = false, phase = 0 }) {
@@ -97,11 +97,11 @@ function createPerson({ x, z, scale = 1, highlighted = false, phase = 0 }) {
   material.userData.baseEmissiveIntensity = material.emissiveIntensity;
 
   const eyeMaterial = new THREE.MeshStandardMaterial({
-    color: highlighted ? 0xd7ff00 : 0x254421,
-    roughness: 0.2,
+    color: highlighted ? 0xeaf9ff : 0x1b4468,
+    roughness: 0.22,
     metalness: 0.05,
-    emissive: highlighted ? 0xd7ff00 : 0x163812,
-    emissiveIntensity: highlighted ? 2.8 : 0.35
+    emissive: highlighted ? 0x8fe0ff : 0x123050,
+    emissiveIntensity: highlighted ? 1.35 : 0.22
   });
   eyeMaterial.userData.baseColor = eyeMaterial.color.clone();
   eyeMaterial.userData.baseEmissive = eyeMaterial.emissive.clone();
@@ -197,11 +197,11 @@ function createFloor() {
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(34, 34),
     new THREE.MeshStandardMaterial({
-      color: 0x020503,
-      roughness: 0.72,
+      color: 0x020716,
+      roughness: 0.74,
       metalness: 0.1,
-      emissive: 0x032000,
-      emissiveIntensity: 0.08
+      emissive: 0x061d3a,
+      emissiveIntensity: 0.06
     })
   );
   floor.rotation.x = -Math.PI / 2;
@@ -210,7 +210,7 @@ function createFloor() {
 }
 
 function createGlowHalo(person) {
-  const halo = new THREE.PointLight(0x60ff00, 0, 5.8, 1.4);
+  const halo = new THREE.PointLight(0x7bd8ff, 0, 5.8, 1.4);
   halo.position.set(0, 2.2, 0.2);
   person.add(halo);
   person.userData.halo = halo;
@@ -234,20 +234,20 @@ function updatePersonGlow(person, delta, elapsed) {
 
   person.userData.meshes.forEach((mesh) => {
     const material = mesh.material;
-    material.color.copy(material.userData.baseColor).lerp(new THREE.Color(0x65ff12), glow);
-    material.emissive.copy(material.userData.baseEmissive).lerp(new THREE.Color(0x65ff12), glow);
-    material.emissiveIntensity = material.userData.baseEmissiveIntensity + glow * 2.7;
+    material.color.copy(material.userData.baseColor).lerp(new THREE.Color(0x82d8ff), glow);
+    material.emissive.copy(material.userData.baseEmissive).lerp(new THREE.Color(0x3ea7ff), glow);
+    material.emissiveIntensity = material.userData.baseEmissiveIntensity + glow * 1.25;
   });
 
   person.userData.glowMeshes.forEach((mesh) => {
     const material = mesh.material;
-    material.color.copy(material.userData.baseColor).lerp(new THREE.Color(0xd7ff00), glow);
-    material.emissive.copy(material.userData.baseEmissive).lerp(new THREE.Color(0xd7ff00), glow);
-    material.emissiveIntensity = material.userData.baseEmissiveIntensity + glow * 4.4;
+    material.color.copy(material.userData.baseColor).lerp(new THREE.Color(0xf0fbff), glow);
+    material.emissive.copy(material.userData.baseEmissive).lerp(new THREE.Color(0x9de5ff), glow);
+    material.emissiveIntensity = material.userData.baseEmissiveIntensity + glow * 2.1;
   });
 
   if (!person.userData.halo) createGlowHalo(person);
-  person.userData.halo.intensity = glow * 14;
+  person.userData.halo.intensity = glow * 6.5;
 }
 
 function updateHover() {
@@ -294,7 +294,7 @@ function animate() {
     updatePersonGlow(person, delta, elapsed);
   });
 
-  acidLight.intensity = 16 + Math.sin(elapsed * 1.4) * 2.4;
+  acidLight.intensity = 7 + Math.sin(elapsed * 1.4) * 1.1;
   composer.render();
   requestAnimationFrame(animate);
 }
